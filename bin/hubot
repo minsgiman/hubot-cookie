@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+set -a;
+test -f .env && source .env;
+test -f .env.local && source .env.local;
+set +a
+
+export PATH="node_modules/.bin:node_modules/hubot/node_modules/.bin:$PATH"
+
+exec node_modules/.bin/hubot "$@"

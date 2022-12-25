@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hubot-cookie
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: hubot-cookie
+    spec:
+      containers:
+        - name: hubot-cookie
+          image: hubot-cookie
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: HUBOT_SLACK_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: hubot-slack-token
+                  key: HUBOT_SLACK_TOKEN
+          resources:
+            limits:
+              cpu: 2
+              memory: 2Gi
+            requests:
+              cpu: 1
+              memory: 1Gi
+      restartPolicy: Always
